@@ -15,6 +15,10 @@ bool Plane::auto_takeoff_check(void)
     uint32_t now = millis();
     uint16_t wait_time_ms = MIN(uint16_t(g.takeoff_throttle_delay)*100,12700);
 
+
+    Plane::dollyRelease = false;
+
+
     // Reset states if process has been interrupted
     if (takeoff_state.last_check_ms && (now - takeoff_state.last_check_ms) > 200) {
 	    takeoff_state.launchTimerStarted = false;
@@ -107,7 +111,7 @@ void Plane::takeoff_calc_roll(void)
     float roll_limit = roll_limit_cd*0.01f;
     float baro_alt = barometer.get_altitude();
     // below 5m use the LEVEL_ROLL_LIMIT
-    const float lim1 = 5;    
+    const float lim1 = 5;
     // at 15m allow for full roll
     const float lim2 = 15;
     if (baro_alt < auto_state.baro_takeoff_alt+lim1) {
@@ -119,7 +123,7 @@ void Plane::takeoff_calc_roll(void)
     nav_roll_cd = constrain_int32(nav_roll_cd, -roll_limit*100UL, roll_limit*100UL);
 }
 
-        
+
 /*
   calculate desired pitch angle during takeoff, setting nav_pitch_cd
  */
@@ -132,6 +136,12 @@ void Plane::takeoff_calc_pitch(void)
         // pitch controller will cause a prop strike
         nav_pitch_cd = 500;
         return;
+    }
+
+    if (Plane::dollyRelease == false)
+    {
+      gcs().send_text( MAV_SEVERITY_INFO, "GO GO GAGET DOLLY!");
+      Plane::dollyRelease = true;
     }
 
     if (ahrs.airspeed_sensor_enabled()) {

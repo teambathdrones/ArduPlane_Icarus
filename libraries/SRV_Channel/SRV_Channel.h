@@ -116,6 +116,7 @@ public:
         k_motor12               = 85,
         k_dspoilerLeft2         = 86,           ///< differential spoiler 2 (left wing)
         k_dspoilerRight2        = 87,           ///< differential spoiler 2 (right wing)
+        k_dollyRelease          = 89,
         k_nr_aux_servo_functions         ///< This must be the last enum value (only add new values _before_ this one)
     } Aux_servo_function_t;
 
@@ -180,14 +181,14 @@ public:
     void reversed_set_and_save_ifchanged(bool r) {
         reversed.set_and_save_ifchanged(r?1:0);
     }
-    
+
     // return true if the SERVOn_FUNCTION has been configured in
     // either storage or a defaults file. This is used for upgrade of
     // parameters in plane
     bool function_configured(void) const {
         return function.configured();
     }
-    
+
 private:
     AP_Int16 servo_min;
     AP_Int16 servo_max;
@@ -236,7 +237,7 @@ private:
     typedef uint16_t servo_mask_t;
 
     // mask of channels where we have a output_pwm value. Cleared when a
-    // scaled value is written. 
+    // scaled value is written.
     static servo_mask_t have_pwm_mask;
 };
 
@@ -333,7 +334,7 @@ public:
 
     // copy radio_in to servo_out by channel mask
     static void copy_radio_in_out_mask(uint16_t mask);
-    
+
     // setup failsafe for an auxiliary channel function, by pwm
     static void set_failsafe_pwm(SRV_Channel::Aux_servo_function_t function, uint16_t pwm);
 
