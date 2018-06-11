@@ -851,7 +851,8 @@ void Plane::servos_auto_trim(void)
 
 void Plane::set_dolly_release(){
 
-  int16_t percent, auto_percent, a;
+  int16_t percent, auto_percent, dolly_output;
+  static int8_t thr_cut_timer = 0;
 
   RC_Channel * dolly_rc_release = RC_Channels::rc_channel(4);
   dolly_rc_release->norm_input();
@@ -859,15 +860,30 @@ void Plane::set_dolly_release(){
 
   if (dollyRelease == true){
     auto_percent = 4500;
+    thr_cut_timer += 1;
+
   } else {
     auto_percent = - 4500;
   }
 
-  a = auto_percent;
-  if (a < percent){
-    a = percent;
+  dolly_output = auto_percent;
+  if (dolly_output < percent){
+    dolly_output = percent;
   }
 
-  SRV_Channels::set_output_scaled(SRV_Channel::k_dollyRelease, a);
+  if ( thr_cut_timer > 0 )
+  {
+    thr_cut_timer += 1;
+    if (thr_cut_timer < 100)
+    {
+      SRV_Channels::set_output_pwm(SRV_Channel::k_throttle, 1000);
+    }
+    else
+    {
+      dollyRelease = false;
+      dollyComplete = true;
+    }
+  }
 
+  SRV_Channels::set_output_scaled(SRV_Channel::k_dollyRelease, dolly_output);
 }
