@@ -851,9 +851,7 @@ void Plane::servos_auto_trim(void)
 
 void Plane::set_dolly_release(){
 
-  int16_t percent, auto_percent, dolly_output, a;
-
-
+  int16_t percent, auto_percent, a;
 
   RC_Channel * dolly_rc_release = RC_Channels::rc_channel(4);
   dolly_rc_release->norm_input();
