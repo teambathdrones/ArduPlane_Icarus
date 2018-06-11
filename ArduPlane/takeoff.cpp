@@ -17,6 +17,7 @@ bool Plane::auto_takeoff_check(void)
 
 
     Plane::dollyRelease = false;
+    Plane::dollyComplete = false;
 
 
     // Reset states if process has been interrupted
@@ -138,7 +139,7 @@ void Plane::takeoff_calc_pitch(void)
         return;
     }
 
-    if (Plane::dollyRelease == false)
+    if (Plane::dollyRelease == false && Plane::dollyComplete == false)
     {
       gcs().send_text( MAV_SEVERITY_INFO, "GO GO GAGET DOLLY!");
       Plane::dollyRelease = true;

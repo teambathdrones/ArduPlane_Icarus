@@ -1112,6 +1112,7 @@ private:
     void avoid_adsb_run();
 
     bool dollyRelease;
+    bool dollyComplete;
 
 public:
     void mavlink_delay_cb();
