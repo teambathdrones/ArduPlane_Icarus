@@ -351,6 +351,7 @@ public:
         k_param_DataFlash = 253, // Logging Group
 
         k_param_dolly_rc_in = 260,
+        k_param_dolly_thr_cut,
 
         // 254,255: reserved
     };
@@ -548,6 +549,9 @@ public:
     AP_Int32 manual_rc_mask;
 
     AP_Int8 dolly_rc_in;
+
+    AP_Int8 dolly_thr_cut;
+
 };
 
 extern const AP_Param::Info var_info[];

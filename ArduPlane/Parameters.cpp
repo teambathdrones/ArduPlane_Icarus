@@ -1184,7 +1184,8 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("MANUAL_RCMASK", 10, ParametersG2, manual_rc_mask, 0),
 
-    AP_GROUPINFO("DOLLY_RC_IN", 13, ParametersG2, dolly_rc_in, 0),
+    AP_GROUPINFO("DOLLY_RC_IN", 13, ParametersG2, dolly_rc_in, 100),
+    AP_GROUPINFO("DOLLY_THR_CUT", 14, ParametersG2, dolly_thr_cut, 100),
 
     AP_GROUPEND
 };

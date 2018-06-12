@@ -860,8 +860,6 @@ void Plane::set_dolly_release(){
 
   if (dollyRelease == true){
     auto_percent = 4500;
-    thr_cut_timer += 1;
-
   } else {
     auto_percent = - 4500;
   }
@@ -871,17 +869,14 @@ void Plane::set_dolly_release(){
     dolly_output = percent;
   }
 
-  if ( thr_cut_timer > 0 )
+  if (dollyRelease == true && dollyComplete == false)
   {
     thr_cut_timer += 1;
-    if (thr_cut_timer < 100)
-    {
+    if (thr_cut_timer < g2.dolly_thr_cut){
       SRV_Channels::set_output_pwm(SRV_Channel::k_throttle, 1000);
-    }
-    else
-    {
-      dollyRelease = false;
+    }else{
       dollyComplete = true;
+      dollyRelease = false;
     }
   }
 
