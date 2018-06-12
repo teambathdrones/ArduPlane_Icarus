@@ -1940,10 +1940,7 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
 
         mavlink_msg_statustext_decode( msg, &status_msg );
 
-        if ( (MAV_SEVERITY)status_msg.severity == MAV_SEVERITY_NOTICE )
-        {
-          gcs().send_text( (MAV_SEVERITY)status_msg.severity, status_msg.text );
-        }
+        gcs().send_text( (MAV_SEVERITY)status_msg.severity, status_msg.text );
       }
       break;
 
