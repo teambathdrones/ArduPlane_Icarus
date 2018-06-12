@@ -575,6 +575,42 @@ void Plane::servo_output_mixers(void)
     dspoiler_update();
 }
 
+// support for dolly take off
+
+void Plane::set_dolly_release(){
+
+  int16_t percent, auto_percent, dolly_output;
+  static int8_t thr_cut_timer = 0;
+
+  RC_Channel * dolly_rc_release = RC_Channels::rc_channel(4);
+  dolly_rc_release->norm_input();
+  percent = 100*(int16_t)dolly_rc_release->percent_input() - SERVO_MAX;
+
+  if (dollyRelease == true){
+    auto_percent = 4500;
+  } else {
+    auto_percent = - 4500;
+  }
+
+  dolly_output = auto_percent;
+  if (dolly_output < percent){
+    dolly_output = percent;
+  }
+
+  if (dollyRelease == true && dollyComplete == false)
+  {
+    thr_cut_timer += 1;
+    if (thr_cut_timer < g2.dolly_thr_cut){
+      SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0);
+    }else{
+      dollyComplete = true;
+      dollyRelease = false;
+    }
+  }
+
+  SRV_Channels::set_output_scaled(SRV_Channel::k_dollyRelease, dolly_output);
+}
+
 /*
   support for twin-engine planes
  */
@@ -848,7 +884,7 @@ void Plane::servos_auto_trim(void)
     }
 
 }
-
+/*
 void Plane::set_dolly_release(){
 
   int16_t percent, auto_percent, dolly_output;
@@ -882,3 +918,4 @@ void Plane::set_dolly_release(){
 
   SRV_Channels::set_output_scaled(SRV_Channel::k_dollyRelease, dolly_output);
 }
+*/
