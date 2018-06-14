@@ -353,6 +353,15 @@ public:
         k_param_dolly_rc_in = 260,
         k_param_dolly_thr_cut,
 
+        k_payload_rc_1,
+        k_payload_rc_2,
+        k_payload_rc_3,
+
+        k_payload_wp_1,
+        k_payload_wp_2,
+        k_payload_wp_3,
+
+
         // 254,255: reserved
     };
 
@@ -551,6 +560,14 @@ public:
     AP_Int8 dolly_rc_in;
 
     AP_Int8 dolly_thr_cut;
+
+    AP_Int8 payload_rc_1;
+    AP_Int8 payload_rc_2;
+    AP_Int8 payload_rc_3;
+
+    AP_Int8 payload_wp_1;
+    AP_Int8 payload_wp_2;
+    AP_Int8 payload_wp_3;
 
 };
 

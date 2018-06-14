@@ -8,3 +8,29 @@
 # ifndef DOLLY_THR_CUT
   # define DOLLY_THR_CUT  1
 # endif
+
+# ifndef PAYLOAD_RC_1
+  # define PAYLOAD_RC_1  1
+# endif
+
+# ifndef PAYLOAD_RC_2
+  # define PAYLOAD_RC_2  1
+# endif
+
+# ifndef PAYLOAD_RC_3
+  # define PAYLOAD_RC_3  1
+# endif
+
+# ifndef PAYLOAD_WP_1
+  # define PAYLOAD_WP_1  1
+# endif
+
+
+# ifndef PAYLOAD_WP_2
+  # define PAYLOAD_WP_2  1
+# endif
+
+
+# ifndef PAYLOAD_WP_3
+  # define PAYLOAD_WP_3  1
+# endif

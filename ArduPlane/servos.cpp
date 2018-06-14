@@ -777,6 +777,7 @@ void Plane::set_servos(void)
     }
 
     set_dolly_release();
+    payload_deployment();
 
     // run output mixer and send values to the hal for output
     servos_output();
@@ -882,6 +883,85 @@ void Plane::servos_auto_trim(void)
         auto_trim.last_trim_save = now;
         g2.servo_channels.save_trim();
     }
+
+}
+
+void Plane::payload_deployment(){
+  // PAYLOAD 1
+    int8_t current_waypoint = mission.get_current_nav_index();
+    int16_t rc_percent1, auto_percent1, payload_output_1;
+    int16_t rc_percent2, auto_percent2, payload_output_2;
+    int16_t rc_percent3, auto_percent3, payload_output_3;
+    static bool payload_1_deployed = false;
+    static bool payload_2_deployed = false;
+    static bool payload_3_deployed = false;
+
+
+    // PAYLOAD 1
+    RC_Channel * payload_1_release = RC_Channels::rc_channel(7);
+    payload_1_release->norm_input();
+    rc_percent1 = 100*(int16_t)payload_1_release->percent_input() - SERVO_MAX;
+
+
+    if (current_waypoint > g2.payload_wp_1 && payload_1_deployed == false){
+        gcs().send_text( MAV_SEVERITY_INFO, "drop payload");
+        payload_1_deployed = true;
+    }
+
+    if (payload_1_deployed == true){
+      auto_percent1 = 4500;
+    } else {auto_percent1 = -4500;}
+
+    payload_output_1 = auto_percent1;
+    if (payload_output_1 < rc_percent1){
+    payload_output_1 = rc_percent1;
+    }
+
+    SRV_Channels::set_output_scaled(SRV_Channel::k_payload1, payload_output_1);
+
+    // PAYLOAD 2
+    RC_Channel * payload_2_release = RC_Channels::rc_channel(8);
+    payload_2_release->norm_input();
+    rc_percent2 = 100*(int16_t)payload_2_release->percent_input() - SERVO_MAX;
+
+
+    if (current_waypoint > g2.payload_wp_2 && payload_2_deployed == false){
+        gcs().send_text( MAV_SEVERITY_INFO, "drop payload");
+        payload_2_deployed = true;
+    }
+
+    if (payload_2_deployed == true){
+      auto_percent2 = 4500;
+    } else {auto_percent2 = -4500;}
+
+    payload_output_2 = auto_percent2;
+    if (payload_output_2 < rc_percent2){
+    payload_output_2 = rc_percent2;
+    }
+
+    SRV_Channels::set_output_scaled(SRV_Channel::k_payload2, payload_output_2);
+
+    // PAYLOAD 3
+    RC_Channel * payload_3_release = RC_Channels::rc_channel(9);
+    payload_3_release->norm_input();
+    rc_percent3 = 100*(int16_t)payload_3_release->percent_input() - SERVO_MAX;
+
+
+    if (current_waypoint > g2.payload_wp_3 && payload_3_deployed == false){
+        gcs().send_text( MAV_SEVERITY_INFO, "drop payload");
+        payload_3_deployed = true;
+    }
+
+    if (payload_3_deployed == true){
+      auto_percent3 = 4500;
+    } else {auto_percent3 = -4500;}
+
+    payload_output_3 = auto_percent3;
+    if (payload_output_3 < rc_percent3){
+    payload_output_3 = rc_percent3;
+    }
+
+    SRV_Channels::set_output_scaled(SRV_Channel::k_payload3, payload_output_3);
 
 }
 /*

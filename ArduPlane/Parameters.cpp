@@ -1187,6 +1187,16 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     AP_GROUPINFO("DOLLY_RC_IN", 13, ParametersG2, dolly_rc_in, 100),
     AP_GROUPINFO("DOLLY_THR_CUT", 14, ParametersG2, dolly_thr_cut, 100),
 
+
+    AP_GROUPINFO("PAYLOAD_RC_1", 15, ParametersG2, payload_rc_1, 100),
+    AP_GROUPINFO("PAYLOAD_RC_2", 16, ParametersG2, payload_rc_2, 100),
+    AP_GROUPINFO("PAYLOAD_RC_3", 17, ParametersG2, payload_rc_3, 100),
+
+    AP_GROUPINFO("PAYLOAD_WP_1", 18, ParametersG2, payload_wp_1, 100),
+    AP_GROUPINFO("PAYLOAD_WP_2", 19, ParametersG2, payload_wp_2, 100),
+    AP_GROUPINFO("PAYLOAD_WP_3", 20, ParametersG2, payload_wp_3, 100),
+
+    
     AP_GROUPEND
 };
 
