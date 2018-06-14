@@ -121,7 +121,7 @@ void SRV_Channel::aux_servo_function_setup(void)
         break;
     case k_payload1:
         set_angle(4500);
-            break;
+        break;
     case k_payload2:
         set_angle(4500);
             break;

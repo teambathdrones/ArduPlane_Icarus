@@ -910,14 +910,14 @@ void Plane::payload_deployment(){
 
     if (payload_1_deployed == true){
       auto_percent1 = 4500;
-    } else {auto_percent1 = -4500;}
+      } else {auto_percent1 = -4500;}
 
     payload_output_1 = auto_percent1;
     if (payload_output_1 < rc_percent1){
     payload_output_1 = rc_percent1;
     }
 
-    SRV_Channels::set_output_scaled(SRV_Channel::k_payload1, payload_output_1);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_payload1, rc_percent1); // change back to output
 
     // PAYLOAD 2
     RC_Channel * payload_2_release = RC_Channels::rc_channel(8);
@@ -939,7 +939,7 @@ void Plane::payload_deployment(){
     payload_output_2 = rc_percent2;
     }
 
-    SRV_Channels::set_output_scaled(SRV_Channel::k_payload2, payload_output_2);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_payload2, rc_percent2);
 
     // PAYLOAD 3
     RC_Channel * payload_3_release = RC_Channels::rc_channel(9);
@@ -961,7 +961,7 @@ void Plane::payload_deployment(){
     payload_output_3 = rc_percent3;
     }
 
-    SRV_Channels::set_output_scaled(SRV_Channel::k_payload3, payload_output_3);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_payload3, rc_percent3);
 
 }
 /*
