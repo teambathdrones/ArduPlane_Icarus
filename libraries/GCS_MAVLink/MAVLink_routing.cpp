@@ -108,7 +108,7 @@ bool MAVLink_routing::check_and_forward(mavlink_channel_t in_channel, const mavl
     
     if (msg->msgid == MAVLINK_MSG_ID_HEARTBEAT) {
         // heartbeat needs special handling
-        handle_heartbeat(in_channel, msg);
+//        handle_heartbeat(in_channel, msg);
         return true;
     }
 
