@@ -1029,6 +1029,7 @@ private:
     void set_servos_old_elevons(void);
     void set_servos_flaps(void);
     void set_dolly_release(void);
+    void payload_deployment(void); // WORKING - PAYLOAD DEPLOWMEMNT
     void dspoiler_update(void);
     void servo_output_mixers(void);
     void servos_output(void);

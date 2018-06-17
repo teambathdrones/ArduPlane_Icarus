@@ -119,6 +119,16 @@ void SRV_Channel::aux_servo_function_setup(void)
     case k_dollyRelease:
         set_angle(4500);
         break;
+    case k_payload1:
+        set_angle(4500);
+            break;
+    case k_payload2:
+        set_angle(4500);
+            break;
+    case k_payload3:
+        set_angle(4500);
+            break;
+
     case k_throttle:
     case k_throttleLeft:
     case k_throttleRight:
@@ -621,7 +631,7 @@ void SRV_Channels::set_angle(SRV_Channel::Aux_servo_function_t function, uint16_
         if (channels[i].function == function) {
             channels[i].set_angle(angle);
         }
-    }    
+    }
 }
 
 // call set_range() on matching channels
@@ -648,7 +658,7 @@ void SRV_Channels::constrain_pwm(SRV_Channel::Aux_servo_function_t function)
 /*
   upgrade RC* parameters into SERVO* parameters. This does the following:
 
-  - copies MIN/MAX/TRIM values from old RC parameters into new RC* parameters and SERVO* parameters. 
+  - copies MIN/MAX/TRIM values from old RC parameters into new RC* parameters and SERVO* parameters.
   - copies RCn_FUNCTION to SERVOn_FUNCTION
   - maps old RCn_REV to SERVOn_REVERSE and RCn_REVERSE
 
