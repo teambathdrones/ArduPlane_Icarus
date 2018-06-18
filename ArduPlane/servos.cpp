@@ -604,7 +604,7 @@ void Plane::set_dolly_release(){
       SRV_Channels::set_output_scaled(SRV_Channel::k_throttle, 0);
     }else{
       dollyComplete = true;
-      dollyRelease = false;
+      // dollyRelease = false;
     }
   }
 
